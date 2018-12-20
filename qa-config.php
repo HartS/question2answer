@@ -41,11 +41,19 @@
 	$credentials = $services_json[$service_name][0]['credentials'];
 
 	// ** MySQL settings from resource descriptor ** //
-        define('QA_MYSQL_HOSTNAME', $credentials['host']);
-	define('QA_MYSQL_USERNAME', $credentials['user']);
+	define('QA_MYSQL_HOSTNAME', $credentials['host']);
+	if ($credentials['user']) {
+		define('QA_MYSQL_USERNAME', $credentials['user']);
+	} else {
+		define('QA_MYSQL_USERNAME', $credentials['username']);
+	}
 	define('QA_MYSQL_PASSWORD', $credentials['password']);
-	define('QA_MYSQL_DATABASE', $credentials['database']);
-        define('QA_MYSQL_PORT', $credentials['port']);
+	if ($credentials['database']) {
+		define('QA_MYSQL_DATABASE', $credentials['database']);
+	} else {
+		define('QA_MYSQL_DATABASE', 'testdb');
+	}
+	define('QA_MYSQL_PORT', $credentials['port']);
 
 /*
 	Ultra-concise installation instructions:
